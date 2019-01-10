@@ -1,0 +1,37 @@
+---
+
+- hosts: localhost
+  tasks:
+  - name: Write Sonar key to known hosts
+    shell: "ssh-keyscan {{ groups['sonar'][0] }} >> /home/ec2-user/.ssh/known_hosts"
+  
+  - name: Change permisions
+    shell: "chmod 644 /home/ec2-user/.ssh/known_hosts"
+
+- hosts: sonar
+  vars:
+    java_packages: java-1.8.0-openjdk
+    sonar_version: 6.7.4
+    sonar_download_url: "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-{{sonar_version}}.zip"
+  pre_tasks:
+    - name: Install the MySQL repo.
+      yum:
+        name: http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+        state: present
+        disable_gpg_check: yes
+      when: ansible_os_family == "RedHat"
+      become: yes
+      
+    - name: Override variables for MySQL (RedHat).
+      set_fact:
+        mysql_daemon: mysqld
+        mysql_packages: ['mysql-server']
+        mysql_log_error: /var/log/mysqld.err
+        mysql_syslog_tag: mysqld
+        mysql_pid_file: /var/run/mysqld/mysqld.pid
+        mysql_socket: /var/lib/mysql/mysql.sock
+      when: ansible_os_family == "RedHat"
+  roles:
+    - { role: '../roles/third_party/geerlingguy.java', become: yes }
+    - { role: '../roles/third_party/geerlingguy.mysql', become: yes }
+    - { role: '../roles/third_party/ansible-role-sonar-master', become: yes }

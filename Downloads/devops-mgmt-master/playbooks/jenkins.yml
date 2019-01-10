@@ -1,0 +1,134 @@
+---
+- import_playbook: docker-setup.yml
+- hosts: localhost
+  vars:
+    aws_cli_user: ec2-user
+    aws_cli_group: ec2-user
+    ansible_os_family: RedHat
+    firewall_allowed_tcp_ports:
+      - "22"
+      - "8080" 
+    java_packages: java-1.8.0-openjdk
+    jenkins_version: 2.121.2
+    jenkins_home: /var/lib/jenkins
+    jenkins_pkg_url: http://pkg.jenkins-ci.org/redhat-stable/ 
+    jenkins_plugins: 
+      - credentials
+      - git
+      - blueocean
+      - github
+      - workflow-aggregator
+      - docker-pipeline
+      - sonar
+  roles:
+    - { role: '../roles/wrapper/aws_cli', become: yes, become_user: ec2-user }
+    - { role: '../roles/third_party/geerlingguy.java', become: yes }
+    - { role: '../roles/third_party/geerlingguy.jenkins', become: yes }
+    - { role: '../roles/wrapper/ansible-terraform', become: yes }
+
+  post_tasks:
+    - name: "wait for Jenkins to come up"
+      uri:
+        url: "http://127.0.0.1:8080/cli"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 120
+      delay: 1
+
+    - name: Add jenkins user to docker group
+      user:
+        name: jenkins
+        append: yes
+        groups: "docker"
+      become: yes
+
+    - name: Register the github user token
+      shell: "cat /home/ec2-user/github-token"
+      register: github_token
+
+    - name: Register the github user
+      shell: "cat /home/ec2-user/github-un"
+      register: github_un    
+
+    - name: Set credentials for Github service account
+      uri:
+        method: POST
+        url: "http://127.0.0.1:8080/credentials/store/system/domain/_/createCredentials"
+        user: admin
+        password: admin
+        force_basic_auth: yes
+        validate_certs: no
+        status_code: 302
+        body: |
+          json={
+            "": "0",
+            "credentials": {
+              "scope": "GLOBAL",
+              "id": "Githuub Token Credentials",
+              "username": "{{ github_un.stdout }}",
+              "password": "{{ github_token.stdout }}",
+              "description": "My new credentials",
+              "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+            },
+          }
+
+    - name: Create persistent Maven repo for docker
+      file:
+        dest: /var/lib/jenkins/.m2
+        owner: jenkins
+        group: jenkins
+        state: directory
+        mode: 0700
+      become: yes
+
+    - name: Create Maven settings.xml file
+      template:
+        src: ../templates/settings.xml.j2
+        dest: /var/lib/jenkins/.m2/settings.xml
+        owner: jenkins
+        group: jenkins
+      become: yes
+
+    - name: Update the Sonar plugin configuration
+      template:
+        src: ../templates/hudson.plugins.sonar.SonarGlobalConfiguration.xml.j2
+        dest: /var/lib/jenkins/hudson.plugins.sonar.SonarGlobalConfiguration.xml
+        owner: jenkins
+        group: jenkins
+        mode: 0640
+      become: yes
+      when: create_sonar == "true"
+
+    - name: Add chmod to init file to ensure proper restart of jenkins on server reboot
+      lineinfile:
+        path: /etc/init.d/jenkins
+        insertafter: '^done'
+        line: 'chmod 744 /var/log/jenkins'
+      become: yes
+
+    - name: Copy ec2-user .ssh dir to jenkins .ssh dir
+      shell: "cp -R /home/ec2-user/.ssh /var/lib/jenkins;"
+      become: yes
+
+    - name: Update permissions on jenkins .ssh
+      file:
+        dest: /var/lib/jenkins/.ssh
+        owner: jenkins
+        group: jenkins
+        state: directory
+        recurse: yes
+      become: yes
+
+    - name: Restart jenkins and docker
+      service:
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+        enabled: "{{ item.enabled }}"
+      become: yes
+      with_items:
+        - { name: 'docker', state: 'restarted', enabled: true }
+        - { name: 'jenkins', state: 'restarted', enabled: true }
+
+- import_playbook: daas-demo-application.yml
+  when: create_sonar == "true" or create_nexus == "true"

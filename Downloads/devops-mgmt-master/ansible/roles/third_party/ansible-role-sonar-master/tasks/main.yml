@@ -1,0 +1,101 @@
+---
+- name: Set correct Java version
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/bin/java
+  when: ansible_os_family == 'Debian' and ansible_distribution_version == "14.04"
+
+- name: Create a database for Sonar.
+  mysql_db:
+    name: "{{ sonar_mysql_database }}"
+    state: present
+
+- name: Create sonar group
+  group:
+    name: "{{sonar_process_group}}"
+    state: present
+
+- name: Create sonar user
+  user:
+    name: "{{sonar_process_user}}"
+    group: "{{sonar_process_group}}"
+    home: /usr/local/sonar
+    createhome: no
+
+- name: Create a sonar mysql user.
+  mysql_user:
+    name: "{{ sonar_mysql_username }}"
+    host: "{{ item }}"
+    priv: "{{ sonar_mysql_database }}.*:ALL"
+    password: "{{ sonar_mysql_password }}"
+  with_items: "{{ sonar_mysql_allowed_hosts }}"
+
+- name: Download Sonar.
+  get_url:
+    url: "{{ sonar_download_url }}"
+    dest: "{{ workspace }}/{{ sonar_version_directory }}.zip"
+    validate_certs: "{{ sonar_download_validate_certs }}"
+    timeout: 60
+
+- name: Unzip Sonar.
+  unarchive:
+    src: "{{ workspace }}/{{ sonar_version_directory }}.zip"
+    dest: /usr/local/
+    copy: no
+    creates: /usr/local/sonar/COPYING
+
+- name: Move Sonar into place.
+  shell: >
+    mv /usr/local/{{ sonar_version_directory }} /usr/local/sonar
+    creates=/usr/local/sonar/COPYING
+
+- name: Change Owner of sonar
+  file:
+    dest: /usr/local/sonar
+    owner: "{{sonar_process_user}}"
+    group: "{{sonar_process_group}}"
+    mode: 0775
+    recurse: yes
+  changed_when: false
+
+- include: configure.yml
+
+- name: Symlink sonar bin.
+  file:
+    src: /usr/local/sonar/bin/linux-x86-64/sonar.sh
+    dest: /usr/bin/sonar
+    state: link
+  register: sonar_symlink
+
+- name: Add sonar as init script for service management.
+  file:
+    src: /usr/local/sonar/bin/linux-x86-64/sonar.sh
+    dest: /etc/init.d/sonar
+    state: link
+  when: "ansible_service_mgr != 'systemd'"
+
+- name: Find and replace runasuser in service  management
+  lineinfile:
+    path: /etc/init.d/sonar
+    regexp: '^#?RUN_AS_USER='
+    line: "RUN_AS_USER={{sonar_process_user}}"
+  when: "ansible_service_mgr != 'systemd'"
+
+- name: Copy SonarQube systemd unit file into place (for systemd systems).
+  template:
+    src: sonar.unit.j2
+    dest: /etc/systemd/system/sonar.service
+    owner: root
+    group: root
+    mode: 0755
+  when: "ansible_service_mgr == 'systemd'"
+
+- name: Ensure Sonar is running and set to start on boot.
+  service: name=sonar state=started enabled=yes
+
+- name: Allow Sonar time to build on first start.
+  pause: seconds=180
+  when: sonar_symlink.changed
+
+- name: Make sure Sonar is responding on the configured port.
+  wait_for: port=9000 delay=3 timeout=300

@@ -1,0 +1,104 @@
+---
+
+- hosts: localhost
+  vars_files:
+    - ../vars/jenkins_vars.yml
+  pre_tasks:
+    - name: Enable rhui-REGION-rhel-server-extras (for docker)
+      shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
+      become: yes
+  roles:
+    #- { role: '../roles/wrapper/aws_cli', become: yes, become_user: ec2-user }
+    - { role: '../roles/third_party/geerlingguy.java', become: yes }
+    - { role: '../roles/third_party/geerlingguy.jenkins', become: yes }
+    - { role: '../roles/wrapper/ansible-terraform', become: yes }
+    #- { role: '../roles/third_party/ansible-role-docker-master', become: yes }
+
+  handlers:
+    - name: restart jenkins
+      service: name=jenkins state=restarted enabled=yes
+
+  post_tasks:
+    - name: "Wait for Jenkins to be running"
+      uri:
+        url: "http://127.0.0.1:8080/cli"
+        status_code: 200
+      register: result
+      until: result.status == 200
+      retries: 120
+      delay: 1  
+
+    - name: Set credentials for Github service account
+      uri:
+        method: POST
+        url: "http://127.0.0.1:8080/credentials/store/system/domain/_/createCredentials"
+        user: admin
+        password: admin
+        force_basic_auth: yes
+        validate_certs: no
+        status_code: 302
+        body: |
+          json={
+            "": "0",
+            "credentials": {
+              "scope": "GLOBAL",
+              "id": "Githuub Token Credentials",
+              "username": "{{ github_un }}",
+              "password": "{{ github_token }}",
+              "description": "My new credentials",
+              "$class": "com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl"
+            },
+          }
+      notify: restart jenkins
+
+    - name: Create persistent Maven repo for docker
+      file:
+        dest: "{{ jenkins_home }}/.m2"
+        owner: jenkins
+        group: jenkins
+        state: directory
+        mode: 0700
+      become: yes
+
+    - name: Create Maven settings.xml file
+      template:
+        src: ../templates/settings.xml.j2
+        dest: "{{ jenkins_home }}/.m2/settings.xml"
+        owner: jenkins
+        group: jenkins
+      become: yes
+
+    - name: Update the Sonar plugin configuration
+      template:
+        src: ../templates/hudson.plugins.sonar.SonarGlobalConfiguration.xml.j2
+        dest: "{{ jenkins_home }}/hudson.plugins.sonar.SonarGlobalConfiguration.xml"
+        owner: jenkins
+        group: jenkins
+        mode: 0640
+      become: yes
+      when: create_sonar == "true"
+      notify: restart jenkins
+
+    - name: Add chmod to init file to ensure proper restart of jenkins on server reboot
+      lineinfile:
+        path: /etc/init.d/jenkins
+        insertafter: '^done'
+        line: "chmod 744 /var/log/jenkins"
+      become: yes
+      notify: restart jenkins
+
+    - name: Copy ec2-user .ssh dir to jenkins .ssh dir
+      shell: "cp -R /home/ec2-user/.ssh {{ jenkins_home }};"
+      become: yes
+
+    - name: Update permissions on jenkins .ssh
+      file:
+        dest: "{{ jenkins_home }}/.ssh"
+        owner: jenkins
+        group: jenkins
+        state: directory
+        recurse: yes
+      become: yes
+
+#- import_playbook: daas-demo-application.yml
+#  when: create_sonar == "true" or create_nexus == "true"

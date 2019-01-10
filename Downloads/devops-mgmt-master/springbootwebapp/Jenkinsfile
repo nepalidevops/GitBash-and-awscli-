@@ -1,0 +1,77 @@
+pipeline {
+    agent none
+
+    parameters {
+        booleanParam(defaultValue: true, description: "", name: 'Sonar_Scan')
+        booleanParam(defaultValue: true, description: "", name: 'Terraform_Deploy')
+    }
+
+    stages {
+        stage("Maven Environment") {
+            agent {
+                docker {
+                    image 'maven:3-alpine'
+                    args '-u root -v /var/lib/jenkins/.m2:/root/.m2 -v ${PWD}:/opt/maven -w /opt/maven'
+                }
+            }
+            stages {
+                stage('Sonar Scan') {
+                    when {
+                        beforeAgent true
+                        expression { params.Sonar_Scan == true }
+                    }
+                    steps {
+                        withSonarQubeEnv('Sonar'){
+                            sh 'cd springbootwebapp; mvn -B clean compile sonar:sonar'
+                        }
+                    }
+                }
+                stage('Test') {
+                    steps {
+                        sh 'cd springbootwebapp; mvn -B test'
+                    }
+                }
+                stage('Build') {
+                    steps {
+                        sh 'cd springbootwebapp; mvn -B -DskipTests clean package'
+                    }
+                }
+                stage('Push to Nexus') {
+                    steps {
+                        sh 'cd springbootwebapp; mvn -B deploy'
+                    }
+                }
+            }
+        }
+        stage("Terraform") {
+            agent any
+            when {
+                beforeAgent true
+                expression { params.Terraform_Deploy == true }
+            }
+            steps {
+                sh 'cd terraform; /usr/local/bin/terraform init'
+                sh 'cd terraform; /usr/local/bin/terraform plan'
+                sh 'cd terraform; /usr/local/bin/terraform apply -auto-approve'
+                sh 'sleep 60'
+            }
+        }
+        stage("Ansible deploy") {
+            agent any
+            steps {
+                sh 'export NEXUS_IP=`cat /var/lib/jenkins/nexus_ip`; export ANSIBLE_INVENTORY_ENABLED=script; export ANSIBLE_TF_DIR=`pwd`/terraform; export ANSIBLE_TF_BIN=/usr/local/bin/terraform; ansible-playbook -i /etc/ansible/terraform.py $WORKSPACE/ansible/playbooks/demo-app.yml --extra-vars \"ansible_ssh_user=ec2-user nexus_ip=\"$NEXUS_IP\"\"'
+            }
+        }
+        stage("Automated Selenium Test") {
+            agent any
+            steps {
+                sh '/usr/local/bin/docker-compose up -d'
+                sh '''
+                    export DEMO_APP_IP=`cd terraform; /usr/local/bin/terraform output demo-app-ip` 
+                    cd selenium-jupiter-example; docker run --rm -v "$(pwd)":/opt/maven -w /opt/maven --net="host" -v "$(pwd)":/root/.m2 maven:3.3.9-jdk-8 mvn clean verify -Durl="http://$DEMO_APP_IP:8080" -B
+                '''
+                sh '/usr/local/bin/docker-compose stop'
+            }
+        }
+    }
+}

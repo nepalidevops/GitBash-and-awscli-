@@ -1,0 +1,40 @@
+---
+
+- name: Get terraform ansible provider thirdparty plugin
+  get_url:
+    url: "{{ terraform_ansible_plugin_url }}"
+    dest: "{{ terraform_home_dir }}"
+
+- name: Create plugins dir
+  file:
+    path: "{{ terraform_plugins_dir }}"
+    state: directory
+    owner: "{{ terraform_user }}"
+    group: "{{ terraform_user }}"
+
+- name: Unzip plugin
+  unarchive:
+    remote_src: yes
+    src: "{{ terraform_home_dir }}/terraform-provider-ansible-linux_amd64.zip"
+    dest: "{{ terraform_plugins_dir }}"
+  become: true
+
+- name: Move terraform-provider-ansible_v0.0.4 and chmod
+  shell: "mv {{ terraform_plugins_dir }}/linux_amd64/terraform-provider-ansible_v0.0.4 {{ terraform_plugins_dir }}/terraform-provider-ansible_v0.0.4; chown -R ec2-user:ec2-user {{ terraform_plugins_dir }}"
+  become: yes
+
+- name: Create terraform.py file
+  copy:
+    src: ../files/terraform.py
+    dest: /etc/ansible/terraform.py
+    mode: 0777
+  become: yes
+
+- name: Change ownership of plugins
+  file:
+    path: "{{ terraform_plugins_dir }}"
+    state: directory
+    owner: "{{ terraform_user }}"
+    group: "{{ terraform_user }}"
+    recurse: yes
+  become: yes

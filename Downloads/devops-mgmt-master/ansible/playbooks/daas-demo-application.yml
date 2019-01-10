@@ -1,0 +1,45 @@
+---
+
+- hosts: localhost
+  become: yes
+  vars_files:
+    - ../vars/jenkins_vars.yml
+  tasks:
+  - name: Create job directory
+    file:
+      dest: "{{ jenkins_home }}/jobs/daas-demo-application"
+      owner: jenkins
+      group: jenkins
+      state: directory
+      mode: 0750
+
+  - name: Create job config.xml
+    template:
+      src: ../templates/config.xml.j2
+      dest: "{{ jenkins_home }}/jobs/daas-demo-application/config.xml"
+      owner: jenkins
+      group: jenkins
+      mode: 0640
+
+  - name: Create file to read in the nexus ip from the jenkins file
+    shell: "echo {{ groups['nexus'][0] }} >> {{ jenkins_home }}/nexus_ip"
+    become: true
+    when: create_nexus == "true"
+
+  - name: Update permission on nexus_ip file
+    file:
+      dest: "{{ jenkins_home }}/nexus_ip"
+      owner: jenkins
+      group: jenkins
+      mode: 0700
+    become: yes
+    when: create_nexus == "true"
+
+  - name: Restart jenkins and docker
+    service:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+      enabled: "{{ item.enabled }}"
+    become: yes
+    with_items:
+      - { name: 'jenkins', state: 'restarted', enabled: true }

@@ -1,0 +1,10 @@
+ProjectName                   = "daas"
+AWSRegion                     = "us-east-1"
+EnvType                       = "prod"
+VPC                           = "vpc-952aeeef"
+
+VPNPrivateSG                  = "sg-b3bc13f9"
+CSRAccessSG                   = "sg-28b51a62"
+AppAZ                         = "us-east-1a"
+AppSubnet                    = "subnet-7ab20326"
+AppKey                        = "daas-jenkins-deploy-key"

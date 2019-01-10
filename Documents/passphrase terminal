@@ -1,0 +1,343 @@
+kedar@kedar-23-b237c:~/Downloads$ cleart
+No command 'cleart' found, did you mean:
+ Command 'clear' from package 'ncurses-bin' (main)
+cleart: command not found
+kedar@kedar-23-b237c:~/Downloads$ clear
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+kedar@kedar-23-b237c:~/Downloads$ pwd
+/home/kedar/Downloads
+kedar@kedar-23-b237c:~/Downloads$ cd
+kedar@kedar-23-b237c:~$ mkdir chakscode
+kedar@kedar-23-b237c:~$ git clone git clone git@bitbucket.org:action2018/devscode.git
+Too many arguments.
+
+usage: git clone [<options>] [--] <repo> [<dir>]
+
+    -v, --verbose         be more verbose
+    -q, --quiet           be more quiet
+    --progress            force progress reporting
+    -n, --no-checkout     don't create a checkout
+    --bare                create a bare repository
+    --mirror              create a mirror repository (implies bare)
+    -l, --local           to clone from a local repository
+    --no-hardlinks        don't use local hardlinks, always copy
+    -s, --shared          setup as shared repository
+    --recursive           initialize submodules in the clone
+    --recurse-submodules  initialize submodules in the clone
+    --template <template-directory>
+                          directory from which templates will be used
+    --reference <repo>    reference repository
+    --dissociate          use --reference only while cloning
+    -o, --origin <name>   use <name> instead of 'origin' to track upstream
+    -b, --branch <branch>
+                          checkout <branch> instead of the remote's HEAD
+    -u, --upload-pack <path>
+                          path to git-upload-pack on the remote
+    --depth <depth>       create a shallow clone of that depth
+    --single-branch       clone only one branch, HEAD or --branch
+    --separate-git-dir <gitdir>
+                          separate git dir from working tree
+    -c, --config <key=value>
+                          set config inside the new repository
+
+kedar@kedar-23-b237c:~$ pwd
+/home/kedar
+kedar@kedar-23-b237c:~$ ll
+total 15976
+drwxr-xr-x 40 kedar kedar     4096 Dec  5 14:10 ./
+drwxr-xr-x  3 root  root      4096 Nov 22 23:31 ../
+drwx------  4 kedar kedar     4096 Nov 27 12:08 .ansible/
+drwxrwxr-x  3 kedar kedar     4096 Nov 27 13:11 ansible_practice/
+drwxrwxr-x  5 kedar kedar     4096 Nov 27 12:45 ansible_role/
+drwxrwxr-x  6 kedar kedar     4096 Nov 27 13:22 .atom/
+drwxrwxr-x  2 kedar kedar     4096 Nov 30 13:52 .aws/
+drwxrwxr-x  2 kedar kedar     4096 Nov 30 13:54 awskey/
+-rw-------  1 kedar kedar     3362 Dec  3 13:11 .bash_history
+-rw-r--r--  1 kedar kedar      220 Nov 22 23:31 .bash_logout
+-rw-r--r--  1 kedar kedar     3637 Nov 22 23:31 .bashrc
+drwx------ 24 kedar kedar     4096 Dec  1 13:20 .cache/
+drwxrwxr-x  2 kedar kedar     4096 Dec  5 14:10 chakscode/
+drwx------  3 kedar kedar     4096 Nov 23 21:58 .compiz/
+drwx------ 25 kedar kedar     4096 Dec  1 13:20 .config/
+drwx------  3 kedar kedar     4096 Nov 23 02:17 .dbus/
+drwxr-xr-x  3 kedar kedar     4096 Nov 24 00:00 Desktop/
+-rw-r--r--  1 kedar kedar       25 Nov 23 02:17 .dmrc
+drwxr-xr-x  2 kedar kedar     4096 Nov 24 18:13 Documents/
+drwxr-xr-x  3 kedar kedar     4096 Dec  5 13:54 Downloads/
+-rw-r--r--  1 kedar kedar     8980 Nov 22 23:31 examples.desktop
+drwx------  3 kedar kedar     4096 Dec  5 11:50 .gconf/
+-rw-rw-r--  1 kedar kedar       49 Nov 27 13:13 .gitconfig
+drwx------  3 kedar kedar     4096 Dec  5 11:50 .gnupg/
+drwxr-xr-x  2 kedar kedar     4096 Nov 24 17:50 .hplip/
+-rw-------  1 kedar kedar     2100 Dec  5 11:50 .ICEauthority
+drwxrwxr-x 10 kedar kedar     4096 Dec  1 13:20 jhipster-sample-app/
+drwx------  5 kedar kedar     4096 Nov 24 13:16 .local/
+drwxrwxr-x  4 kedar kedar     4096 Dec  1 13:18 .m2/
+drwx------  5 kedar kedar     4096 Nov 24 00:00 .mozilla/
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Music/
+drwxrwxr-x  2 kedar kedar     4096 Nov 27 13:14 .nano/
+-rwxr-xr-x  1 kedar kedar 16117632 Jul 15  2017 ngrok*
+drwx------  2 kedar kedar     4096 Nov 27 11:56 .ngrok2/
+drwxrwxr-x  2 kedar kedar     4096 Dec  1 13:18 .oracle_jre_usage/
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Pictures/
+drwx------  3 kedar kedar     4096 Nov 24 16:57 .pki/
+-rw-r--r--  1 kedar kedar      675 Nov 22 23:31 .profile
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Public/
+drwxr-xr-x  2 root  root      4096 Nov 29 23:15 .rpmdb/
+drwxrwxr-x  3 kedar kedar     4096 Nov 28 11:28 scripts/
+drwx------  2 kedar kedar     4096 Nov 27 13:04 .ssh/
+-rw-r--r--  1 kedar kedar        0 Nov 23 23:58 .sudo_as_admin_successful
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Templates/
+drwx------  5 kedar kedar     4096 Nov 26 14:17 .thunderbird/
+-rw-rw-r--  1 kedar kedar     9488 Dec  1 13:20 .v8flags.5.1.281.108.d46860b23d0e05a0458b4a9fe63df2a4.json
+drwxrwxr-x  7 kedar kedar     4096 Nov 27 12:05 venv/
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Videos/
+drwxr-xr-x  2 kedar kedar     4096 Nov 26 17:18 .vim/
+-rw-------  1 kedar kedar     5599 Dec  1 13:04 .viminfo
+-rw-------  1 kedar kedar       59 Dec  5 11:50 .Xauthority
+-rw-------  1 kedar kedar       82 Dec  5 11:50 .xsession-errors
+-rw-------  1 kedar kedar       82 Dec  1 11:50 .xsession-errors.old
+drwxrwxr-x  3 kedar kedar     4096 Dec  1 13:09 .yarn/
+-rw-rw-r--  1 kedar kedar      116 Dec  1 13:08 .yarnrc
+drwxrwxr-x  6 kedar kedar     4096 Nov 26 14:44 .zoom/
+kedar@kedar-23-b237c:~$ cd chackscode
+bash: cd: chackscode: No such file or directory
+kedar@kedar-23-b237c:~$ cd chakscode
+kedar@kedar-23-b237c:~/chakscode$ ll
+total 8
+drwxrwxr-x  2 kedar kedar 4096 Dec  5 14:10 ./
+drwxr-xr-x 40 kedar kedar 4096 Dec  5 14:10 ../
+kedar@kedar-23-b237c:~/chakscode$ cd
+kedar@kedar-23-b237c:~$ #ssh-keygen -t rsa -b 2048 -c k@gmail.com
+kedar@kedar-23-b237c:~$ ssh-keygen -t rsa -b 2048 -C shadowsofmountain@gmail.com
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/kedar/.ssh/id_rsa): 
+/home/kedar/.ssh/id_rsa already exists.
+Overwrite (y/n)? yes
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/kedar/.ssh/id_rsa.
+Your public key has been saved in /home/kedar/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:hNGHC/aPWRVAbyJ1q2LfdZwaT7pIWy/8Risa6sGVeB4 shadowsofmountain@gmail.com
+The key's randomart image is:
++---[RSA 2048]----+
+|      .. o+.o.   |
+|      ooo..o..   |
+|     ..ooo..+    |
+|       .o.o+.  ..|
+|        S*.E ..oo|
+|       .+o=...*o |
+|         o.+o+...|
+|          + =+oo |
+|        .o +..=o |
++----[SHA256]-----+
+kedar@kedar-23-b237c:~$ cat /home/kedar/.ssh/id_rsa
+id_rsa      id_rsa.pub  
+kedar@kedar-23-b237c:~$ cat /home/kedar/.ssh/id_rsa
+id_rsa      id_rsa.pub  
+kedar@kedar-23-b237c:~$ cat /home/kedar/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpgIBAAKCAQEAsfDNmQh2QXqcU1E6Zatjc6SYrxWFNGia9m9NjRcDLauPEowc
+48EOdWEpkYF1NvjBAlww6nSoDsh/oMTpf2QR4/0Lfhk6ZpVx876AkmMZQy7VQNXF
++5PMFMWCmgNF+xAVBYECpqO2cYmmT3690NTCzzH0iajeg7lkpMNRyDiilCmXKuS1
+j3LQcwbVp8zcNMSjqWF3u71MtpouKtKGF2ktHM7N0TatCMffhuFQSgkkpqDDXvkV
+nSm33aFLRNhgXaZvzJCZh9g8pnU/fJn6Ubc0xLQCbj+U3YPSxfY8z8qJSvoY/Spe
+RdILx0f5jaRLPdwaP+e8GtQisYFy7oVNY9+ZJwIDAQABAoIBAQCYacFBLm1UYrhZ
+6T6S7T2vRTH+7fj9zgfFw8pyal6vlL5kzZzFPIys3/+iAXgsEOAJrHu9pxR4LSac
+x22VT1q/pPReGy/ZxHIprGgmezmdQRUqhrEhbxQkSpU2ZE1h4gGPiFSD9cCE+bl5
+Z/8gS81dedWSwBFwVLEvK5n2XQRs0NAJ/1I32AmbdB1hBBY8Dc5kNf7Js81AqB21
+iXnCDZyFZMkZhWd1oLjFDuVTOXYz08Exkv8JbXR9ubm5mXTYW5eRTQuwfJvpIBRo
+LIHGqXjxtmHtWuKu1REVwQsgEDIYobY47Y+tN7sjPZtFzoAxRJ5vEk6jJIOvVJHv
+j1IYo6QpAoGBAOi4wXeyNd7EjVfm6ErXV2qzlzsGGsZCMzGgRT3ZC/NBQSXkJrUD
+K2WiOVrcpoq58Yu3+eVZiEx9JUYTJ7Z/w28zYuW8iiQ2eMYkOviCPkR5yikZtXCb
+N73bU2TGqI+Tnpi9UKqzzB7Zsv9F4P9Ccpu4bDaAs6MdLj/tyyVv5KXDAoGBAMO9
+SGmrxkCMJkJuRh1Ics6Xq4N0+EL3oIrE4jEL/Ogxo6c7P6z2KgoShHC2qcdRWzIj
+I96wk7vj+qJXNBIIUKUHpc9/EkwXE3cdLn96HRa2pKQ0+R/LrBx0rOHH5OyXk54n
+YU2fdfzI6aPJBTMcSy6yF4IhJ/pvA9Gv5+5Dg/TNAoGBAKU2tLKDI9dYdneXCAZJ
+xleL06sldFCXorxyaXW05tT02IlL5WbQLzjh6BHnX5xQ0Xg9Tf1SiH60wYd0Bdd7
+8IS7WFR8ex2mRit0gSD3Zbk7NRfklniw2OvCDvwWRIhZZlhM3j2xkxG7v2WWeFr/
+E1oVnU08JUuBZdoguP2E6C/9AoGBAJgniyKZZILIbvU0w0wABT6Sp8CILHPiCenV
+If7+Upor/AsDA3xv3j32Jv13AILvuvQ+XKO+nxhvH2USZGegDxA54apqHM8JIRh2
+lq6BPhtp3pHGm+Ebca6tA7Z+rHU9XoKSGhE843qcswGeQWx5kfe6eIuvOmRx54YY
+NzH/SZQBAoGBAILot9iQ05rzzgOOG8B84NIbFyT+h2wSByB4gu8Ob9bTiq7EdDoy
+K8smO4E8qhpLoQmdTGosFVnEhAQfQQgnzzIHELG4Cj8VSgvU0Uw30VYTftZRhL+b
+tS7Cl4AaACaTLGLDIpHnQlEgbwn8viRor7B/Y38Ib1EDaGjPMQXjxtHh
+-----END RSA PRIVATE KEY-----
+kedar@kedar-23-b237c:~$ cat /home/kedar/.ssh/id_rsa.pubssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCx8M2ZCHZBepxTUTplq2NzpJivFYU0aJr2b02NFwMtq48SjBzjwQ51YSmRgXU2+MECXDDqdKgOyH+gxOl/ZBHj/Qt+GTpmlXHzvoCSYxlDLtVA1cX7k8wUxYKaA0X7EBUFgQKmo7ZxiaZPfr3Q1MLPMfSJqN6DuWSkw1HIOKKUKZcq5LWPctBzBtWnzNw0xKOpYXe7vUy2mi4q0oYXaS0czs3RNq0Ix9+G4VBKCSSmoMNe+RWdKbfdoUtE2GBdpm/MkJmH2DymdT98mfpRtzTEtAJuP5Tdg9LF9jzPyolK+hj9Kl5F0gvHR/mNpEs93Bo/57wa1CKxgXLuhU1j35kn shadowsofmountain@gmail.com
+kedar@kedar-23-b237c:~$ cd chakscode/ && git clone git@bitbucket.org:action2018/devscode.git
+Cloning into 'devscode'...
+The authenticity of host 'bitbucket.org (18.205.93.2)' can't be established.
+RSA key fingerprint is SHA256:zzXQOXSRBEiUtuE8AikJYKwbHaxvSc0ojez9YXaGp1A.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'bitbucket.org,18.205.93.2' (RSA) to the list of known hosts.
+remote: Counting objects: 375, done.
+remote: Compressing objects: 100% (261/261), done.
+remote: Total 375 (delta 63), reused 375 (delta 63)
+Receiving objects: 100% (375/375), 1.19 MiB | 0 bytes/s, done.
+Resolving deltas: 100% (63/63), done.
+Checking connectivity... done.
+kedar@kedar-23-b237c:~/chakscode$ ll
+total 12
+drwxrwxr-x  3 kedar kedar 4096 Dec  5 14:19 ./
+drwxr-xr-x 40 kedar kedar 4096 Dec  5 14:10 ../
+drwxrwxr-x  9 kedar kedar 4096 Dec  5 14:19 devscode/
+kedar@kedar-23-b237c:~/chakscode$ cd devscode/cloudformation/
+kedar@kedar-23-b237c:~/chakscode/devscode/cloudformation$ atom .
+kedar@kedar-23-b237c:~/chakscode/devscode/cloudformation$ cd home
+bash: cd: home: No such file or directory
+kedar@kedar-23-b237c:~/chakscode/devscode/cloudformation$ cd 
+kedar@kedar-23-b237c:~$ ll
+total 15976
+drwxr-xr-x 40 kedar kedar     4096 Dec  5 14:10 ./
+drwxr-xr-x  3 root  root      4096 Nov 22 23:31 ../
+drwx------  4 kedar kedar     4096 Nov 27 12:08 .ansible/
+drwxrwxr-x  3 kedar kedar     4096 Nov 27 13:11 ansible_practice/
+drwxrwxr-x  5 kedar kedar     4096 Nov 27 12:45 ansible_role/
+drwxrwxr-x  6 kedar kedar     4096 Nov 27 13:22 .atom/
+drwxrwxr-x  2 kedar kedar     4096 Nov 30 13:52 .aws/
+drwxrwxr-x  2 kedar kedar     4096 Nov 30 13:54 awskey/
+-rw-------  1 kedar kedar     3362 Dec  3 13:11 .bash_history
+-rw-r--r--  1 kedar kedar      220 Nov 22 23:31 .bash_logout
+-rw-r--r--  1 kedar kedar     3637 Nov 22 23:31 .bashrc
+drwx------ 24 kedar kedar     4096 Dec  1 13:20 .cache/
+drwxrwxr-x  3 kedar kedar     4096 Dec  5 14:19 chakscode/
+drwx------  3 kedar kedar     4096 Nov 23 21:58 .compiz/
+drwx------ 25 kedar kedar     4096 Dec  1 13:20 .config/
+drwx------  3 kedar kedar     4096 Nov 23 02:17 .dbus/
+drwxr-xr-x  3 kedar kedar     4096 Nov 24 00:00 Desktop/
+-rw-r--r--  1 kedar kedar       25 Nov 23 02:17 .dmrc
+drwxr-xr-x  2 kedar kedar     4096 Nov 24 18:13 Documents/
+drwxr-xr-x  3 kedar kedar     4096 Dec  5 13:54 Downloads/
+-rw-r--r--  1 kedar kedar     8980 Nov 22 23:31 examples.desktop
+drwx------  3 kedar kedar     4096 Dec  5 11:50 .gconf/
+-rw-rw-r--  1 kedar kedar       49 Nov 27 13:13 .gitconfig
+drwx------  3 kedar kedar     4096 Dec  5 11:50 .gnupg/
+drwxr-xr-x  2 kedar kedar     4096 Nov 24 17:50 .hplip/
+-rw-------  1 kedar kedar     2100 Dec  5 11:50 .ICEauthority
+drwxrwxr-x 10 kedar kedar     4096 Dec  1 13:20 jhipster-sample-app/
+drwx------  5 kedar kedar     4096 Nov 24 13:16 .local/
+drwxrwxr-x  4 kedar kedar     4096 Dec  1 13:18 .m2/
+drwx------  5 kedar kedar     4096 Nov 24 00:00 .mozilla/
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Music/
+drwxrwxr-x  2 kedar kedar     4096 Nov 27 13:14 .nano/
+-rwxr-xr-x  1 kedar kedar 16117632 Jul 15  2017 ngrok*
+drwx------  2 kedar kedar     4096 Nov 27 11:56 .ngrok2/
+drwxrwxr-x  2 kedar kedar     4096 Dec  1 13:18 .oracle_jre_usage/
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Pictures/
+drwx------  3 kedar kedar     4096 Nov 24 16:57 .pki/
+-rw-r--r--  1 kedar kedar      675 Nov 22 23:31 .profile
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Public/
+drwxr-xr-x  2 root  root      4096 Nov 29 23:15 .rpmdb/
+drwxrwxr-x  3 kedar kedar     4096 Nov 28 11:28 scripts/
+drwx------  2 kedar kedar     4096 Nov 27 13:04 .ssh/
+-rw-r--r--  1 kedar kedar        0 Nov 23 23:58 .sudo_as_admin_successful
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Templates/
+drwx------  5 kedar kedar     4096 Nov 26 14:17 .thunderbird/
+-rw-rw-r--  1 kedar kedar     9488 Dec  1 13:20 .v8flags.5.1.281.108.d46860b23d0e05a0458b4a9fe63df2a4.json
+drwxrwxr-x  7 kedar kedar     4096 Nov 27 12:05 venv/
+drwxr-xr-x  2 kedar kedar     4096 Nov 23 02:17 Videos/
+drwxr-xr-x  2 kedar kedar     4096 Nov 26 17:18 .vim/
+-rw-------  1 kedar kedar     5599 Dec  1 13:04 .viminfo
+-rw-------  1 kedar kedar       59 Dec  5 11:50 .Xauthority
+-rw-------  1 kedar kedar       82 Dec  5 11:50 .xsession-errors
+-rw-------  1 kedar kedar       82 Dec  1 11:50 .xsession-errors.old
+drwxrwxr-x  3 kedar kedar     4096 Dec  1 13:09 .yarn/
+-rw-rw-r--  1 kedar kedar      116 Dec  1 13:08 .yarnrc
+drwxrwxr-x  6 kedar kedar     4096 Nov 26 14:44 .zoom/
+kedar@kedar-23-b237c:~$ cd a
+ansible_practice/ ansible_role/     awskey/           
+kedar@kedar-23-b237c:~$ cd awskey/
+kedar@kedar-23-b237c:~/awskey$ ll
+total 16
+drwxrwxr-x  2 kedar kedar 4096 Nov 30 13:54 ./
+drwxr-xr-x 40 kedar kedar 4096 Dec  5 14:10 ../
+-r--------  1 kedar kedar 1692 Nov 24 13:46 ansible.pem
+-rw-------  1 kedar kedar 1766 Nov 30 13:54 keyname
+kedar@kedar-23-b237c:~/awskey$ vim JenkinsKey 
+kedar@kedar-23-b237c:~/awskey$ cat JenkinsKey | base64 -d
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,76CC83F826C2E7513FD0E871AA87321D
+
+PCWmny4MepnjBhs0XgBEnQwcfoHHcpUuz2sV4sWMKpWF4HVrc5ishd9M+6EJ25nK
++aL498Zkj3r4CXfLJFBKDvS9rxLIpZslGGOrEdR8XmAgZV3tGjgU/VVmB5iTugJI
+Z+NeAQRjQYW50awF7wmwwzZQWoF8UajQlzg4ix+CM4NfuKD8SyEIP2TzCCVDJH0a
+/1+suz713bXXIJkA0Vvb+OqSYPC1Pvv+9ZXGyhCjvoOGhBLcydCmxO/KqORGjDtU
+3XK0xW/whvqM0S/uADOPMXZUgsCdMNN/2ezlRBeEz7D9x2YB2vb/UtYBcnTN+VH9
+8GYirHOzFHzf4vb6RhVkA7aflAeSZpr0G6L9F7QqTrby7UVvZCjGgEKny1gcFTee
+L9uA+eCByQwXIL/P72klQ3VtWUDsumhQDNeTNAcWhz4cyIHQLbJrcgtynM82mBvt
+XCcqypWLjWQ+aKCcyXKKroPCPapvjD9Or8x1LJ3QElSDLk1DxaCimpP+Ezqncp35
+n3RdUm7Rlo7iqSrA5ciA4r/qFGjXmBsTMsa9+nUJ1TLrXlWOwrLho0IwzSStHXro
+uG9B4SxJcUWCRSK9ATx4vi+MJnrYp53KYGuLLOTJbmZ04uUXU+zC5DO7GXsJnoFe
+a0y+uiJzQzUqN/94TamTzGolEc1dcd19tFOxs2iGbT+vErupsVvQgncYXQ73udKq
+c0V45ieDZ1YOyWThRUkQhzmp2YFD4ZWVf5Sc21n3yQdAftdKLzZ5OwN3wDjK3PlI
+MbPTxH2LPBfeCTPNHyOUKK5+7DNZkw5RT90Ym24n+WzCs1q5AfYfOK75vLBXi3m2
+VSAw1wNKfCeGy6D46vFm4tdhvgQxl/wGvyCNQwCRS5kH0mUX2CqDvlDqyLAcTsVP
+Rayc7hRm4dUD2Fuuxc+Rie4loL5KfgdSCesUr7jg27DlkloMmJ9tTE8zF1KQ1nZC
+k8JNV8IPL6wu5IGt83HSw4DSYHCbXSey1XXVTGiVi2+uZEjEw6eeenbLQrrQNkSk
+qz2BRMaCCc3twf0MiPOI5cGRSrgY4WQieE7N6dG1W6I4Dln+5NxrWS1snWycl+sE
+BZ+zMuSDb8xzqc3EPkzDU6k83LAQVJ/5mk6PYoK8i1s3SEStSElaB6txmIUulAAD
+NSzoYBo8mjIwevS4zPLasIS3iGE7GMoic0ijwwnjM0eHlb5N9qnJ4z66yHBXSbBs
+0aKOjUDXNTJXCpZEc2YNXH77Nz71R+EFoNJbrray3OFwSKfh6HL/IH/HClTZnpYW
+Wan07ljObmUvDbSFNE3ObCkME+aiZY0t9J164EPso9TRX3AGvHnBcxw8gKc5vgjU
+I1Wt1sRopBk+ktpV+luWXZ57PN34C+ZpySfOwJtxpmvWGXdMB2O4MD8DWQpXxVEQ
+vf8kkE3t3xYkLnKRJma4hrhEsam67YCYT+tDRGIn1soHI+kUFvbl612Lc/14EW5x
+s5F/ZFu2uZ5+XBQsIYfkLYtu5ib++0eDWQfNXZoBB+EiLzprVvKGA64AE42kp/n5
+2Ljdqw9iNTGTKiBjjaZfASfJ5kDScBA+71fttfs4GCXz3lgF7FISFxA9iDiuarSh
+-----END RSA PRIVATE KEY-----
+base64: invalid input
+kedar@kedar-23-b237c:~/awskey$ pwd
+/home/kedar/awskey
+kedar@kedar-23-b237c:~/awskey$ aws s3 ls
+The program 'aws' is currently not installed. You can install it by typing:
+sudo apt install awscli
+kedar@kedar-23-b237c:~/awskey$ vim JenkinsKey 
+kedar@kedar-23-b237c:~/awskey$ chmod 600 JenkinsKey 
+kedar@kedar-23-b237c:~/awskey$ ssh -i JenkinsKey@ ec2-user@52.201.249.235
+Warning: Identity file JenkinsKey@ not accessible: No such file or directory.
+The authenticity of host '52.201.249.235 (52.201.249.235)' can't be established.
+ECDSA key fingerprint is SHA256:Nt4zRzPZLMbHOnOAqPhFo2Dn1qZLIjb4yabhjX2FY5Q.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '52.201.249.235' (ECDSA) to the list of known hosts.
+ec2-user@52.201.249.235's password: 
+
+kedar@kedar-23-b237c:~/awskey$ ssh
+ssh          ssh-add      ssh-agent    ssh-argv0    ssh-askpass  ssh-copy-id  ssh-keygen   ssh-keyscan  
+kedar@kedar-23-b237c:~/awskey$ ssh -i 
+ansible.pem  JenkinsKey   keyname      
+kedar@kedar-23-b237c:~/awskey$ ssh -i JenkinsKey root@52.201.249.235
+The authenticity of host '52.201.249.235 (52.201.249.235)' can't be established.
+ECDSA key fingerprint is SHA256:Nt4zRzPZLMbHOnOAqPhFo2Dn1qZLIjb4yabhjX2FY5Q.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '52.201.249.235' (ECDSA) to the list of known hosts.
+Enter passphrase for key 'JenkinsKey': 
+root@52.201.249.235's password: 
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[root@ip-172-31-42-235 ~]# Connection to 52.201.249.235 closed by remote host.
+Connection to 52.201.249.235 closed.
+kedar@kedar-23-b237c:~/awskey$ 
+

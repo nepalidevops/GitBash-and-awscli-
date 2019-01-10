@@ -1,0 +1,95 @@
+ll
+
+0123456789 chaks 
+
+0 has two values { -, d, l }
+
+- is for regular file type
+d - is for directory
+l - symbolic link
+
+123 - permission for user
+
+456 - permission for group
+
+789 - permission for other
+
+
+chmod 400 filename
+
+octest value
+
+r - 4
+w - 2
+x - 1
+
+convert 400 to rwx format
+
+4 >> r-- > user
+0 >> --- > group
+0 >> --- > other
+
+r--------
+
+755 ?
+
+rwx-wx-wx
+
+644 ?
+
+rw-r--r--
+
+default permission for the directory should be 755
+default permission for the regular file should be 644
+
+754 is a safer permission
+
+
+problem 1: kedar has a directory named "code". 
+
+- He wants to view permission status. How? Answer: ll
+- He wants to add write permission for the directory for group. How? Answer: chmod g+w code
+- He wants to make the directory readonly for others. How? Answer: chmod o-w code
+- He wants to give everyone all permission of the folder. How? Answer: chmod 777 code / chmod ugo+rwx code
+- He wants to remove write and execution permission from others. How? Answer: chmod o-wx code
+- He wants to remove write permission from group. How? Answer: chmod g-w code
+
+- He wants to add write permission to all files for other under code directory. How?  Answer: chmod -R o+w code/
+- He wants to remove execute permission from all files for other under code directory. How? Answer: chmod -R o-x code/
+
+
+
+# file ownership is handled with chown 
+
+usage >> sudo chown user_name:group_name filepath
+
+problem 1: kedar has a directory named "code" with his user and group permission.
+
+- He wants to change both the user and group ownsership to root. how? Answer: sudo chown root:root code/
+- He wants to change all files under the directorty both to the user and group ownership to root. how? Answer: sudo chown -R root:root code/
+- He wants to change all files under the directorty both to the user and group ownership to current logged in user. How? 
+  
+  Answer: sudo chown -R $(whoami):$(whoami) code/
+  Answer: sudo chown -R ${USER}:${USER} code/
+
+- He wants to change only the user ownsership to root. how? Answer: sudo chown root code/
+- He wants to change only the group ownsership to root. how? Answer: sudo chown :root code/
+- He wants to change recursively only the user ownsership to root. how? Answer: sudo chown -R root code/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

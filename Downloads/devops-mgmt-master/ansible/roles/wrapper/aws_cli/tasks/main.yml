@@ -1,0 +1,55 @@
+---
+
+- name: 'Install Python PIP'
+  get_url:
+    url: "{{ pip_url }}"
+    dest: "{{ user_home }}"
+
+- name: "Run python script"
+  command: "python {{ user_home }}/get-pip.py --user"
+
+- name: "Install awscli"
+  command: "{{ user_home }}/.local/bin/pip install awscli --upgrade --user"
+
+- name: "Install boto3"
+  command: "{{ user_home }}/.local/bin/pip install boto3 --upgrade --user"
+
+- name: Set home directory of the user
+  set_fact:
+    home_dir: /home/{{ aws_cli_user }}
+  when: "not aws_cli_user == 'root'"
+
+- name: Set home directory for root
+  set_fact:
+    home_dir: /root
+  when: "aws_cli_user == 'root'"
+
+- name: 'Create the AWS config directory'
+  tags: 'aws-cli'
+  become: true
+  file: 
+    path: "{{ home_dir }}/.aws"
+    state: directory
+    owner: "{{ aws_cli_user }}"
+    group: "{{ aws_cli_group }}"
+    mode: 0755
+
+- name: 'Copy AWS CLI config'
+  tags: 'aws-cli'
+  become: true
+  template: 
+    src: aws_cli_config.j2
+    dest: "{{ home_dir }}/.aws/config"
+    owner: "{{ aws_cli_user }}"
+    group: "{{ aws_cli_group }}"
+    mode: 0600
+
+- name: 'Copy AWS CLI credentials'
+  tags: 'aws-cli'
+  become: true
+  template: 
+    src: aws_cli_credentials.j2
+    dest: "{{ home_dir }}/.aws/credentials"
+    owner: "{{ aws_cli_user }}"
+    group: "{{ aws_cli_group }}"
+    mode: 0600

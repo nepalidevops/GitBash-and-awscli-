@@ -1,0 +1,24 @@
+---
+
+- hosts: demo-app
+  vars:
+    java_packages: java-1.8.0-openjdk
+  roles:
+    - { role: '../roles/third_party/geerlingguy.java', become: yes }
+  post_tasks:
+    - name: Pull the latest jar from nexus
+      maven_artifact:
+        group_id: guru.springframework
+        artifact_id: spring-boot-web
+        extension: jar
+        repository_url: "http://{{ nexus_ip }}:8081/repository/maven-snapshots"
+        username: admin
+        password: changeme
+        dest: /home/ec2-user/springboot.jar
+      become: yes
+
+    - name: Deploy the jar to the instance
+      shell: "(java -jar /home/ec2-user/springboot.jar >/dev/null 2>&1 &)"
+      async: 10
+      poll: 0
+      become: yes

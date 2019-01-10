@@ -1,0 +1,20 @@
+---
+
+- hosts: localhost
+  tasks:
+  - name: Write Nexus key to known hosts
+    shell: "ssh-keyscan {{ groups['nexus'][0] }} >> /home/ec2-user/.ssh/known_hosts"
+  
+  - name: Change permisions
+    shell: "chmod 644 /home/ec2-user/.ssh/known_hosts"
+
+- hosts: nexus
+  vars: 
+    java_packages: java-1.8.0-openjdk
+  tasks:
+    - debug:
+        msg: "---- {{ inventory_hostname }} ----"
+  roles:
+    - { role: '../roles/third_party/geerlingguy.java', become: yes }
+    - { role: '../roles/third_party/geerlingguy.apache', become: yes }
+    - { role: '../roles/third_party/ansible-nexus3-oss-master', become: yes }

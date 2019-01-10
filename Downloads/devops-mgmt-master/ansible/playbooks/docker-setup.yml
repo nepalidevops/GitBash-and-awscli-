@@ -1,0 +1,30 @@
+---
+
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Add Docker CE yum repo
+      shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+    - name: Enable rhui-REGION-rhel-server-extras
+      shell: yum-config-manager --enable rhui-REGION-rhel-server-extras
+
+    - name: install necessary packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - container-selinux
+        - docker-ce
+
+    - name: Start Docker
+      service: 
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Install Docker Compose.
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.22.0/docker-compose-Linux-x86_64
+        dest: "/usr/bin/docker-compose"
+        mode: 0755

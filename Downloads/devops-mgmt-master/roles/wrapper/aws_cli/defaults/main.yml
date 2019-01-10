@@ -1,0 +1,10 @@
+---
+aws_cli_user: '{{ ansible_ssh_user }}'
+aws_cli_group: '{{ ansible_ssh_user }}'
+aws_output_format: 'json'
+aws_region: 'us-east-1'
+aws_access_key_id: 'YOUR_ACCESS_KEY_ID'
+aws_secret_access_key: 'YOUR_SECRET_ACCESS_KEY'
+
+pip_url: "https://bootstrap.pypa.io/get-pip.py"
+user_home: "/home/{{ aws_cli_user }}"

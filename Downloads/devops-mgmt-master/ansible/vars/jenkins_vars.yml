@@ -1,0 +1,27 @@
+---
+
+#awscli
+aws_cli_user: ec2-user
+aws_cli_group: ec2-user
+ansible_os_family: RedHat
+
+#jenkins
+firewall_allowed_tcp_ports:
+  - "22"
+  - "8080" 
+java_packages: java-1.8.0-openjdk
+jenkins_version: 2.121.2
+jenkins_home: /var/lib/jenkins
+jenkins_pkg_url: http://pkg.jenkins-ci.org/redhat-stable/ 
+jenkins_plugins: 
+  - credentials
+  - git
+  - blueocean
+  - github
+  - workflow-aggregator
+  - docker-pipeline
+  - sonar
+
+#docker
+docker_users:
+  - jenkins

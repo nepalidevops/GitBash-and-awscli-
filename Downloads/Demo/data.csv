@@ -1,0 +1,2 @@
+server,name,address,city,state,zipCode,cardType,cardNumber,expiryMonth,expiryYear,nameOnCard
+www.blazedemo.com,Aditya Natha,40 mahaveer colony,jaipur,Rajasthan,302006,visa,4111111111111111,11,2021,Aditya
